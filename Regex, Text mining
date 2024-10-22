@@ -1,0 +1,19 @@
+Creating 
+df_mean = df[['links', 'mails', 'quotes', 'hashtags', 'label', 'capslock', 'chain_capslock',
+             'exclamation', 'chain_exclamation', 'interrogation', 'chain_interrogation', 'nb_caracter', 'etc', 'smileys']].groupby(['label']).mean()
+graphs_per_row = 4
+n_cols = df_mean.shape[1]
+n_rows = (n_cols + graphs_per_row - 1) // graphs_per_row
+fig, axes = plt.subplots(n_rows, graphs_per_row,
+                         figsize=(15, 5*n_rows), sharey=False)
+axes = axes.flatten()
+
+# Iterate on each column to create a bar graph for each features
+for i, col in enumerate(df_sum.columns):
+    # Calculate the row and column index for the current subplot
+    row_index = i // graphs_per_row
+    col_index = i % graphs_per_row
+
+    # Create the bars for label 0 and 1 in each subplot
+    axes[i].bar(['0', '4'], df_mean[col], color=['blue', 'orange'])
+    axes[i].set_title(col)
