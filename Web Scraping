@@ -1,0 +1,69 @@
+from urllib.request import urlopen
+from bs4 import BeautifulSoup as bs
+
+url="https://assets-datascientest.s3.eu-west-1.amazonaws.com/IMDB_en.html"
+url_imdb=urlopen(url)
+soup_imdb=bs(url_imdb,'lxml')
+films_imdb=soup_imdb.find_all('tr')[1:100]
+# The first element is excluded because it contains the head of the table
+titles,ranks,years=[],[],[]
+films_imdb
+
+for movie in films_imdb:
+    poster_column = movie.find('td', class_="posterColumn")
+    if poster_column:
+        rank_span = movie.find('span', attrs={'name': "rk"})
+        rank = rank_span['data-value']
+        ranks.append(rank)
+
+        title_img = movie.find('img', attrs={'height': "67"})
+        title = title_img['alt']
+        titles.append(title)
+
+        year=movie.find('span', class_="secondaryInfo").text.strip('()')
+        years.append(year)
+
+print('first title:',films_imdb[0].find('img', attrs={'height': "67"})['alt'])
+
+print('first rank:', films_imdb[0].find('span', attrs={'name': "rk"})['data-value'])
+
+years[0]
+# or
+print('first release year:', films_imdb[0].find('span', class_="secondaryInfo").text.strip('()'))
+
+ratings=[]
+for movie in films_imdb:
+    rating = movie.find('span', attrs={'name': "ir"})['data-value']
+    ratings.append(rating)
+
+import pandas as pd
+df_imdb = pd.DataFrame({'Title': titles, 'Year': years, 'ImdB Rating': ratings})
+df_imdb
+
+import requests
+from bs4 import BeautifulSoup
+url_meta = 'https://assets-datascientest.s3.eu-west-1.amazonaws.com/133_webscraping/Metacritic.html'
+res = urlopen(url_meta)
+soup_meta = bs(res, 'html.parser')
+soup_meta.prettify().splitlines()[0:30]
+films_meta=soup_meta.find_all("td", class_="clamp-summary-wrap")
+films_meta
+titles,ratings=[],[]
+for i in films_meta:
+  title=i.find('a', class_="title").text
+  titles.append(title)
+
+  rating=i.find('div', class_="metascore_w user large movie positive").text # I took the user rating (made more sense to me). We can compare that one better with the imdb rating because of the range.
+  ratings.append(rating)
+len(titles)
+titles[0]
+ratings[0]
+import pandas as pd
+df_meta=pd.DataFrame({'Title':titles,"User Ratings":ratings})
+df_meta
+
+df_meta['Title'] = df_meta['Title'].str.upper()
+df_imdb['Title'] = df_imdb['Title'].str.upper()
+
+merged_df = pd.merge(df_meta, df_imdb, on='Title', how='inner')
+print(merged_df)
