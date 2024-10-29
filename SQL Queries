@@ -1,0 +1,13 @@
+| Operator    | Description                                                                                      |
+|-------------|--------------------------------------------------------------------------------------------------|
+| =           | Equal                                                                                             |
+| <>          | Not equal                                                                                        |
+| >           | Greater than                                                                                      |
+| <           | Less than                                                                                        |
+| >=          | Greater than or equal to                                                                         |
+| <=          | Less than or equal to                                                                            |
+| IN          | TRUE if the operand is equal to one of a list of expressions                                     |
+| BETWEEN     | TRUE if the operand is within the range of comparisons                                           |
+| LIKE        | Used in a WHERE clause to search for a specified pattern in a column                             |
+| IS NULL     | Used to test for empty values (NULL values)                                                      |
+| IS NOT NULL | Used in SQL to test for a non-NULL value                                                         |
