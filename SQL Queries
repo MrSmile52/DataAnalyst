@@ -49,3 +49,9 @@
 | [^A-C]%           | The string cannot start with a character from A to C but can be of any length                                |
 | %[A-Z]            | The string must end with a character from A to Z and can be of any length                                    |
 | %[%$#@]%          | The string can be of any length and must have at least one match with a character in the brackets            |
+
+### HOW TO JOIN GENRE TABLE ON TRACKS TABLE ###
+%%sql
+SELECT * 
+FROM tracks 
+JOIN genres ON tracks.GenreId = genres.GenreId;
