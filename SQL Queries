@@ -11,3 +11,41 @@
 | LIKE        | Used in a WHERE clause to search for a specified pattern in a column                             |
 | IS NULL     | Used to test for empty values (NULL values)                                                      |
 | IS NOT NULL | Used in SQL to test for a non-NULL value                                                         |
+
+| Wildcard | Description                                                    |
+|----------|----------------------------------------------------------------|
+| %        | Matches any combination of characters of any size              |
+| _        | Matches any single character                                   |
+
+| Pattern  | Description                                                    |
+|----------|----------------------------------------------------------------|
+| D%       | Matches any combination of characters that starts with D       |
+| %S       | Matches any combination of characters that ends with S         |
+| %T%      | Matches any combination of characters that contains a T        |
+| __       | Matches any combination of exactly 2 characters                |
+| a_       | Matches any 2 characters that start with an "a"                |
+| _%       | Matches any combination of characters with at least 1 character|
+| __%      | Matches any combination of characters with at least 2 characters|
+
+| Regular Expression | Description                                                                                                  |
+|--------------------|--------------------------------------------------------------------------------------------------------------|
+| %                  | Matches any combination of characters of any size                                                            |
+| _                  | Matches any single character                                                                                 |
+| +                  | Matches at least one instance of the previous expression                                                     |
+| ^                  | Corresponds to the beginning of the line                                                                     |
+| $                  | Searches at the end of the line                                                                              |
+| <                  | Matches only if the word starts at this point                                                                |
+| >                  | Matches only if the word ends at this point                                                                  |
+| \n                 | Matches if there is a line break                                                                             |
+| [ ]                | Matches if any of the characters between brackets are present                                               |
+| [^...]             | Matches if any of the characters between brackets and before the ^ are present                              |
+
+| Pattern            | Description                                                                                                  |
+|--------------------|--------------------------------------------------------------------------------------------------------------|
+| [ABQ]%            | The string must start with an A, B, or Q and can be of any length                                            |
+| [AB][CD]%         | The string must start with an A or B, the second character must be C or D, and can be of any length          |
+| [A-Z]%            | The string must start with a character from A to Z and can be of any length                                  |
+| [A-Z0-9]%         | The string must start with a letter from A to Z or a number from 0 to 9 and can be of any length             |
+| [^A-C]%           | The string cannot start with a character from A to C but can be of any length                                |
+| %[A-Z]            | The string must end with a character from A to Z and can be of any length                                    |
+| %[%$#@]%          | The string can be of any length and must have at least one match with a character in the brackets            |
