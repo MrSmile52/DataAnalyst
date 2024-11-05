@@ -55,3 +55,7 @@
 SELECT * 
 FROM tracks 
 JOIN genres ON tracks.GenreId = genres.GenreId;
+
+SELECT artists.Name, tracks.Composer, tracks.Name AS Song
+FROM artists 
+LEFT JOIN tracks ON tracks.Composer LIKE ('%' || artists.Name || '%');  
