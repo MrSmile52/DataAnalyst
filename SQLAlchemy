@@ -1,7 +1,8 @@
 ### SQLAlchemy
 # CREATING CONNECTION TO DATABASE
 
-engine= create_engine('sqlite:///chinooks.db',echo=True)
+engine= create_engine('sqlite:///chinooks.db',echo=True) 
+# The Engine is your primary interface to the database. It manages the connection between your Python application and the actual database
 
 # or, if it is a database from mysql: 
 
@@ -28,3 +29,47 @@ print(conn.execute("SELECT Title FROM albums LIMIT 10").fetchall())
 # DELETING TABLES
 sql = text('DROP TABLE IF EXISTS users;') 
 result = engine.connect().execute(sql)
+
+# CREATING TABLES WITH SQLAlchemy 
+# 1. Option:
+students= Table('students',meta,
+               Column('id',Integer,primary_key=True),
+                Column('firstname',String),
+                Column('lastname', String),
+                Column('course_id',Integer,ForeignKey("courses.id")))
+
+# 2. Option: 
+db_url='mysql+pymysql://root:MrSmile1998!@localhost/parks_and_recreation'
+
+engine= create_engine(db_url)
+Base=declarative_base()
+inspector = inspect(engine)
+tables=inspector.get_table_names()
+
+class User(Base):
+    __tablename__="users" 
+    id=Column(Integer,primary_key=True)
+    age=Column(Integer)
+    name=Column(Integer)
+Base.metadata.create_all(engine)
+
+
+### Table Modifications 
+# Transactions 
+The commit function allows to validate the transaction. In Python, this gives us the following structure: :
+
+# We create the connection     
+with engine.connect() as connection:
+    # beginning of the transaction
+    with connection.begin() as transaction:
+        # we try to execute a transaction
+        try:
+            connection.execute(instruction)
+        # if the transaction fails
+        except:
+            transaction.rollback()
+            raise # Raise 
+        # if the transaction is successful
+        else:
+            transaction.commit()
+The instruction argument corresponds to the operation
