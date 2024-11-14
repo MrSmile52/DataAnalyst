@@ -1,0 +1,30 @@
+### SQLAlchemy
+# CREATING CONNECTION TO DATABASE
+
+engine= create_engine('sqlite:///chinooks.db',echo=True)
+
+# or, if it is a database from mysql: 
+
+engine= create_engine(db_url)
+# URL template: 
+db_url='mysql+pymysql://root:MrSmile1998!@localhost/parks_and_recreation'
+
+# INSPECTOR 
+# The Inspector is a valuable tool to understand both the schema of the tables as well as the constraints between them
+inspector = inspect(engine)
+inspector.get_table_names()
+inspector.get_columns(table_name='albums')
+inspector.get_foreign_keys(table_name='albums')
+
+# CONNECT TO ENGINE
+#To perform SQL queries, we need a connection to the engine object. To connect to the engine we can use the connect method which returns an instance of the Connection class.
+conn=engine.connect()
+
+# EXECUTE SQL QUERIES
+# We can now use the execute method associated with an instance of the Connection class created earlier. To retrieve the result use fetchall()
+conn.execute("SELECT Title FROM albums LIMIT 10")
+print(conn.execute("SELECT Title FROM albums LIMIT 10").fetchall())
+
+# DELETING TABLES
+sql = text('DROP TABLE IF EXISTS users;') 
+result = engine.connect().execute(sql)
