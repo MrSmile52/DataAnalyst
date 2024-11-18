@@ -67,3 +67,10 @@ JOIN (SELECT *
      FROM artists
      JOIN albums ON albums.ArtistId = artists.ArtistId) as a # nested Join. "a" is now a new table consisting of albums and artists
 ON tracks.Composer LIKE ("%"||a.Name||"%") # searches for a.Name in the sequence tracks.Composer
+
+Aggregate functions	SQL language
+COUNT	counts how many rows are in a particular column
+MAX	returns the highest values in a particular column
+MIN	returns the lowest value in a particular column
+AVG	calculates the average of a group of selected values
+SUM	returns the total sum of a numeric column
