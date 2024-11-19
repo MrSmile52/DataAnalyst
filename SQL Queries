@@ -50,6 +50,17 @@
 | %[A-Z]            | The string must end with a character from A to Z and can be of any length                                    |
 | %[%$#@]%          | The string can be of any length and must have at least one match with a character in the brackets            |
 
+### CREATE TABLES 
+CREATE TABLE courses (
+     id INTEGER NOT NULL
+     name VARCHAR 
+     PRIMARY KEY (id))
+
+### UPDATE TABLES
+UPDATE table # table: The name of the table
+SET lastname ="Durand"
+WHERE id =2
+
 ### HOW TO JOIN GENRE TABLE ON TRACKS TABLE ###
 %%sql
 SELECT * 
